@@ -8,7 +8,8 @@ The "Student Enrolment Management System" is a Java Spring application designed 
 
 ## UML Diagram
 
-![Dark Mode UML](enrolment_app-UML-dark.png)
+![UML Diagram](enrolment_app-UML-light.png#gh-light-mode-only)
+![UML Diagram](enrolment_app-UML-dark.png#gh-dark-mode-only)
 
 ## Features
 
