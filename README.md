@@ -1,8 +1,8 @@
-# Student Enrollment App
+# Student Enrolment Management System
 
 ## Description
 
-The "Student Enrollment App" is a Java Spring application designed to help manage student enrollments, book inventory, and rentals. It uses a PostgreSQL database and is set up to be easily deployed and scaled using Docker. The application provides a RESTful API, allowing users to add, update, retrieve, and delete information about books, rentals, and students.
+The "Student Enrolment Management System" is a Java Spring application designed to help manage student enrollments, book inventory, and rentals. It uses a PostgreSQL database and is set up to be easily deployed and scaled using Docker. The application provides a RESTful API, allowing users to add, update, retrieve, and delete information about books, rentals, and students.
 
 ---
 
@@ -41,7 +41,7 @@ Based on the technologies and configurations you have provided in your Maven `po
 - **H2 Database**: Embedded database used for testing, configured to be transient.
 
 ### Code Mapping and Reduction
-- **MapStruct 1.5.5.Final**: For mapping between DTOs and entity objects, reducing boilerplate code in Java bean mappings.
+- **MapStruct**: For mapping between DTOs and entity objects, reducing boilerplate code in Java bean mappings.
 - **Lombok**: Utilized to minimize boilerplate code like getters, setters, and constructors.
 
 ### Build and Deployment
@@ -80,7 +80,7 @@ Based on the technologies and configurations you have provided in your Maven `po
    ```
 2. Navigate to the project directory:
    ```
-   cd student-enrolment-app
+   cd student-enrolment-management-system
    ```
 
 ### Running the Application
