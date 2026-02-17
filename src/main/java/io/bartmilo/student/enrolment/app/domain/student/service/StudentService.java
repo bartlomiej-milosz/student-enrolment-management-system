@@ -1,7 +1,6 @@
 package io.bartmilo.student.enrolment.app.domain.student.service;
 
 import io.bartmilo.student.enrolment.app.domain.student.model.StudentDto;
-import io.bartmilo.student.enrolment.app.domain.student.model.StudentEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

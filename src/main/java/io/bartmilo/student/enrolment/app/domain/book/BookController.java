@@ -5,7 +5,6 @@ import io.bartmilo.student.enrolment.app.domain.book.model.BookDto;
 import io.bartmilo.student.enrolment.app.domain.book.model.BookRequest;
 import io.bartmilo.student.enrolment.app.domain.book.model.BookResponse;
 import io.bartmilo.student.enrolment.app.domain.book.service.BookService;
-import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

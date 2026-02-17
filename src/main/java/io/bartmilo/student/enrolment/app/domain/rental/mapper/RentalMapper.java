@@ -7,12 +7,9 @@ import io.bartmilo.student.enrolment.app.domain.rental.model.RentalResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RentalMapper {
-
-  RentalMapper INSTANCE = Mappers.getMapper(RentalMapper.class);
 
   @Mapping(source = "bookEntity.id", target = "bookId")
   @Mapping(source = "studentEntity.id", target = "studentId")

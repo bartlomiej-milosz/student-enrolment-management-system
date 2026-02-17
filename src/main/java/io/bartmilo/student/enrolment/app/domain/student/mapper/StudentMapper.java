@@ -7,15 +7,10 @@ import io.bartmilo.student.enrolment.app.domain.student.model.StudentResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(
-    componentModel = "spring",
-    uses = {StudentIdCardMapper.class},
+@Mapper(componentModel = "spring", uses = {StudentIdCardMapper.class},
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface StudentMapper {
-
-  StudentMapper INSTANCE = Mappers.getMapper(StudentMapper.class);
 
   @Mapping(source = "studentIdCardEntity", target = "studentIdCardDto")
   StudentDto convertEntityToDto(StudentEntity entity);
