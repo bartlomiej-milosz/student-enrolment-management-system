@@ -1,67 +1,28 @@
 # Student Enrolment Management System
 
-## Description
-
-The "Student Enrolment Management System" is a Java Spring application designed to help manage student enrollments, book inventory, and rentals. It uses a PostgreSQL database and is set up to be easily deployed and scaled using Docker. The application provides a RESTful API, allowing users to add, update, retrieve, and delete information about books, rentals, and students.
+A robust and scalable Spring Boot application designed to manage students, books, and library rentals. This project demonstrates modern Java development practices, including domain-driven design, containerization with Docker, and comprehensive testing.
 
 ---
 
-## UML Diagram
+## Technology Stack
 
-![UML Diagram](enrolment_app-UML-light.png#gh-light-mode-only)
-![UML Diagram](enrolment_app-UML-dark.png#gh-dark-mode-only)
-
-## Features
-
-- Manage book inventory
-- Handle book rentals and returns
-- Enroll students (in progress) and manage student information
-- PostgreSQL database integration
-- Easily deployable docker configuration
-
-## In-Progress Features
-
-- **Payment Module Integration**: Currently under development as indicated in the UML diagram, the payment module will handle different payment statuses such as paid, pending, and overdue. This will be crucial for managing financial transactions related to book rentals, ensuring a seamless and automated process for fee collection and status updates.
-
-- **Course Enrollment**: Another feature in progress involves the course enrollment capabilities, which will allow students to enroll in courses directly through the app. This feature will include handling of various course levels such as beginner, intermediate, and advanced, providing a dynamic and flexible learning management system.
-
-Based on the technologies and configurations you have provided in your Maven `pom.xml` and your Docker setup, here's how you could outline the used technologies in your `README.md` file:
+- **Core Backend**: Java 21, Spring Boot 3.4.1
+- **Database**: PostgreSQL (Production), H2 (Testing)
+- **Containerization**: Docker, Docker Compose
+- **Object Mapping**: MapStruct 1.6.3
+- **Utilities**: Lombok 1.18.40
+- **Build Tool**: Maven
 
 ---
 
-## Technologies Used
+## Key Features
 
-### Application and Data
-- **Java 17**: The application is written in Java, leveraging the modern features of Java 17.
-- **Spring Boot 3.2.4**: Utilizes Spring Boot for rapid application development, focusing on convention over configuration.
-- **Spring Data JPA**: Simplifies data access operations by using Java Persistence API.
-- **Spring Web**: Manages RESTful services via Spring MVC.
-
-### Database
-- **PostgreSQL**: Primary database used for production environments, integrated through Spring Data JPA.
-- **H2 Database**: Embedded database used for testing, configured to be transient.
-
-### Code Mapping and Reduction
-- **MapStruct**: For mapping between DTOs and entity objects, reducing boilerplate code in Java bean mappings.
-- **Lombok**: Utilized to minimize boilerplate code like getters, setters, and constructors.
-
-### Build and Deployment
-- **Maven**: Manages dependencies and builds the application. Configured to handle resource filtering and project packaging.
-- **Docker**: Containers are used to encapsulate the application environment, ensuring consistency across different deployment targets.
-- **Docker Compose**: Manages multi-container Docker applications, orchestrating the application and the PostgreSQL database service.
-
-### Testing
-- **Spring Boot Starter Test**: Provides essential libraries for testing Spring Boot applications including JUnit, Hamcrest, and Mockito.
-
-### Development Environment
-- **IntelliJ IDEA**: The IDE used for developing the application, as seen from the provided screenshot, enhancing developer productivity with robust support for Java and Spring.
-
-### Source Control
-- **Git**: Used for version control, facilitating source code management and collaborative development.
-
-### Plugins and Tools
-- **Spring Boot Maven Plugin**: Enhances the build process with capabilities such as building executable JARs.
-- **Maven Resources Plugin 3.1.0**: Handles the copying of resources during the build phase, ensuring that all non-code resources like properties files are correctly included in the final build artifact.
+- **Student Management**: Full CRUD operations for student records.
+- **Book Inventory**: Manage a catalogue of books.
+- **Rental System**: Complete logic for renting and returning books, linking students to library resources.
+- **RESTful API**: Clean and consistent API design following best practices.
+- **Pagination**: Efficient data retrieval for large datasets.
+- **Error Handling**: Global exception handling for consistent error responses.
 
 ---
 
@@ -69,119 +30,137 @@ Based on the technologies and configurations you have provided in your Maven `po
 
 ### Prerequisites
 
-- Java 17
-- Maven
-- Docker
+- **Java 21+** installed
+- **Docker** & **Docker Compose** installed
+- **Maven** installed
 
-### Installation
+### Option 1: Run with Docker (Recommended)
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/bartlomiejMilosz/student-enrolment-app.git
-   ```
-2. Navigate to the project directory:
-   ```
-   cd student-enrolment-management-system
-   ```
+The easiest way to run the application is using Docker Compose, which sets up both the application and the PostgreSQL database.
 
-### Running the Application
-
-Start the application using Docker Compose:
-   ```
-   docker-compose up --build
-   ```
-   This command will set up the PostgreSQL database and run the application.
-
-### Accessing the Application
-
-Once the application is running, you can access it at:
+```bash
+docker compose up --build
 ```
-http://localhost:8080/[specific endpoint]
+
+The application will start at `http://localhost:8080`.
+
+### Option 2: Run Locally
+
+1.  **Database Setup**: Ensure you have a PostgreSQL instance running on port `5432` with a database named `student-enrolment-management-system-db`, user `postgres`, and password `root` (or update `application.properties`).
+2.  **Build the Project**:
+    ```bash
+    mvn clean install
+    ```
+3.  **Run the Application**:
+    ```bash
+    mvn spring-boot:run
+    ```
+
+---
+
+## API Documentation
+
+Base URI: `http://localhost:8080`
+
+### Students (`/students`)
+
+| Method | Endpoint         | Description                              |
+| :----- | :--------------- | :--------------------------------------- |
+| GET    | `/students`      | Retrieve a paginated list of students    |
+| GET    | `/students/{id}` | Get details of a specific student        |
+| POST   | `/students`      | Register a new student                   |
+| PUT    | `/students/{id}` | Update an existing student's information |
+| PATCH  | `/students/{id}` | Partially update a student's information |
+| DELETE | `/students/{id}` | Remove a student from the system         |
+
+### Books (`/books`)
+
+| Method | Endpoint      | Description                           |
+| :----- | :------------ | :------------------------------------ |
+| GET    | `/books`      | Retrieve a paginated list of books    |
+| GET    | `/books/{id}` | Get details of a specific book        |
+| POST   | `/books`      | Add a new book to the catalogue       |
+| PUT    | `/books/{id}` | Update an existing book's information |
+| DELETE | `/books/{id}` | Remove a book from the catalogue      |
+
+### Rentals (`/rentals`)
+
+| Method | Endpoint        | Description              |
+| :----- | :-------------- | :----------------------- |
+| POST   | `/rentals`      | Rent a book to a student |
+| PUT    | `/rentals/{id}` | Process a book return    |
+
+### Example: Create a Student
+
+**Request** `POST /students`
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@university.com",
+  "age": 21
+}
+```
+
+**Response** `201 Created`
+```json
+{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@university.com",
+  "age": 21,
+  "studentIdCardResponse": null,
+  "bookResponseList": []
+}
 ```
 
 ---
 
-## API Endpoints
+## Architecture
 
-The application provides several **RESTful** endpoints:
+The project follows a **Domain-Driven Design (DDD)** inspired, layered architecture:
 
-### Books
-
-- **POST /books**
-    - Description: Creates a new book record
-    - Request Body: `BookDto`
-    - Response: `201 Created`
-
-- **GET /books**
-    - Description: Retrieves a list of all books, with pagination
-    - Query Params: `page`, `size`
-    - Response: `200 OK`
-
-- **GET /books/{id}**
-    - Description: Retrieves a specific book by its ID
-    - Response: `200 OK`
-
-- **PUT /books/{id}**
-    - Description: Updates a book record by ID
-    - Request Body: `BookDto`
-    - Response: `200 OK`
-
-- **DELETE /books/{id}**
-    - Description: Deletes a specific book by its ID
-    - Response: `204 No Content`
-
-### Rentals
-
-- **POST /rentals**
-    - Description: Creates a rental record for a book
-    - Request Body: `RentalDto`
-    - Response: `201 Created`
-
-- **PUT /rentals/{id}**
-    - Description: Marks a book as returned
-    - Response: `200 OK`
-
-### Students
-
-- **POST /students**
-    - Description: Enrolls a new student
-    - Request Body: `StudentDto`
-    - Response: `201 Created`
-
-- **GET /students**
-    - Description: Retrieves a list of all students, with pagination
-    - Query Params: `page`, `size`
-    - Response: `200 OK`
-
-- **GET /students/{id}**
-    - Description: Retrieves a specific student by ID
-    - Response: `200 OK`
-
-- **PATCH /students/{id}**
-    - Description: Partially updates a student record
-    - Request Body: `StudentDto`
-    - Response: `200 OK`
-
-- **DELETE /students/{id}**
-    - Description: Deletes a specific student by ID
-    - Response: `204 No Content`
-
-### Error Handling
-
-- **GET /error**
-    - Description: Redirects to custom error page
-    - Response: Forward to `/error.html`
+- **Controller** layer exposes RESTful endpoints and handles HTTP request/response mapping
+- **Service** layer contains business logic (e.g., rental stock management, student registration)
+- **Repository** layer manages data persistence via Spring Data JPA
+- **DTO pattern** with MapStruct separates API models from domain entities, keeping layers decoupled
+- **Domain-scoped exception handling** — each domain (Book, Student, Rental) defines its own exceptions and `@ControllerAdvice` handlers, with a global fallback for common errors
 
 ---
 
-## Contributing
+## Testing
 
-Contributions to the Student Enrollment App are welcome. Please ensure that your commits adhere to the following guidelines:
+The project includes **68 tests** covering both unit and integration layers:
 
-- Keep descriptions clear and concise
-- Include comments in your code where necessary
-- Write tests for new features and ensure existing tests pass
+- **Unit tests** use Mockito to isolate service logic from database dependencies
+- **Integration tests** use an embedded H2 database and Spring's `@SpringBootTest` to verify full request flows — from controller through service to repository
+- Tests cover all three domains: Students, Books, and Rentals
 
-## License
+```bash
+mvn test
+```
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+---
+
+## Project Structure
+
+```
+src/main/java/io/bartmilo/student/enrolment/app/
+├── domain/
+│   ├── book/           # Controller, Service, Repository, Model, Mapper, Exception
+│   ├── rental/         # Rental domain with book stock management logic
+│   └── student/        # Student domain with ID card generation
+└── handler/advice/     # Global exception handling
+```
+
+---
+
+## Design Decisions
+
+- **MapStruct over ModelMapper** — compile-time code generation means zero reflection overhead at runtime and type-safe mappings caught at build time
+- **DDD-inspired package structure** — each domain is self-contained with its own controller, service, repository, models, and exception handlers, making it easy to navigate and extend
+- **H2 for testing** — eliminates the need for Docker during CI/CD test runs while keeping the same JPA/Hibernate behavior as the PostgreSQL production database
+- **Record-based DTOs** — Java records provide immutability and reduce boilerplate compared to traditional POJOs
+
+---
